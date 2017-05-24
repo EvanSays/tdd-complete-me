@@ -70,7 +70,7 @@ describe('Insert', function() {
       trie = new Trie();
     })
 
-  it('should suggest a word', () => {
+  it.only('should suggest a word', () => {
 
     trie.insert("pizza")
     trie.insert("pea")

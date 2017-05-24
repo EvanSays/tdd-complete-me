@@ -42,30 +42,34 @@ class Trie {
     let finalArray = []
 
     // find base node
-    inputValue.forEach((element) => {
-
-      if (currentNode.children[element]) {
-
-        currentNode = currentNode.children[element];
-
-      }
-    })
+    let newCurrentNode = this.findNode(inputValue, currentNode)
 
     // find children words
-    this.findChildrenWords(input, currentNode)
-    return finalArray
+    this.findChildrenWords(input, newCurrentNode)
+    //return finalArray
   }
 
-  findChildrenWords(input, currentNode, suggestedArray = []) {
-    let keys = Object.keys(currentNode.children);
-    //console.log(currentNode)
-    //console.log(keys);
+  findChildrenWords(inputValue, currentNode, suggestedArray = []) {
+    //console.log(inputValue, currentNode);
+     let keys = Object.keys(currentNode.children);
+     //console.log(keys);
 
     keys.forEach((element)  => {
+      //console.log(element);
+
+      //console.log(currentNode);
+      let newCurrentNode = this.findNode(element, currentNode)
+      console.log(newCurrentNode);
+    })
+  }
+
+  findNode(inputValue, currentNode) {
+    inputValue.forEach((element) => {
       if (currentNode.children[element]) {
         currentNode = currentNode.children[element];
       }
     })
+    return currentNode
   }
 
 
