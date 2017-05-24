@@ -80,7 +80,8 @@ describe('Insert', function() {
     trie.insert("pienapple")
     trie.insert("breakfast")
     trie.insert("cat")
-    expect(trie.suggest('pie')).to.deep.equal([ 'pie' ])
+
+    expect(trie.suggest('pie')).to.deep.equal([ 'pie', 'pieface' ])
   })
 })
 
@@ -101,4 +102,18 @@ describe('Insert', function() {
       //expect(trie.count).to.equal(235886);
     })
   })
+
+  describe('Recursion', () => {
+
+    beforeEach(() => {
+      trie = new Trie();
+    })
+
+    it('should return a full string', () => {
+      trie.insert('pizza')
+
+      expect(trie.suggest('pi')).to.deep.equal([ 'pizza' ])
+    })
+
+})
 })

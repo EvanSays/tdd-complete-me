@@ -30,32 +30,46 @@ class Trie {
     return this.wordCount;
   }
 
-  suggest(word) {
-    if(!word) {
-      return "please input word"
+  suggest(input) {
+    if (!input) {
+      return 'please enter some letters';
     }
-    let currentNode = this.root.children;
-    let inputValue = [...word.toLowerCase()]
 
-    let finalLetters = [];
-    let finalArray = [];
+    let currentNode = this.root;
+    let inputValue = [...input.toLowerCase()]
 
+    // let nodeLetters = [];
+    let finalArray = []
+
+    // find base node
     inputValue.forEach((element) => {
 
-      if(currentNode[element]){
-        finalLetters.push(element)
+      if (currentNode.children[element]) {
 
-        if(currentNode[element].isCompleteWord === true){
-          finalLetters = finalLetters.join('');
-          finalArray.push(finalLetters)
-        }
-        currentNode = currentNode[element].children
+        currentNode = currentNode.children[element];
+
       }
-
     })
+
+    // find children words
+    this.findChildrenWords(input, currentNode)
     return finalArray
   }
-  
+
+  findChildrenWords(input, currentNode, suggestedArray = []) {
+    let keys = Object.keys(currentNode.children);
+    //console.log(currentNode)
+    //console.log(keys);
+
+    keys.forEach((element)  => {
+      if (currentNode.children[element]) {
+        currentNode = currentNode.children[element];
+      }
+    })
+  }
+
+
+
   populate(words) {
     for(var i =0; i < words.length; i++) {
       this.insert(words[i])
