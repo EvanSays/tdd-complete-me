@@ -22,7 +22,7 @@ class Trie {
         currentNode.isCompleteWord = true;
       }
     })
-    
+
     this.wordCount += 1;
   }
 
@@ -37,36 +37,42 @@ class Trie {
 
     let currentNode;
     let inputValue = [...input.toLowerCase()]
-    let finalArray = []
+    let finalArray = [];
 
     // find base node
     currentNode = this.findNode(inputValue, this.root)
 
     // find children words
-    return this.findChildrenWords(input, currentNode, finalArray)
+    this.findChildrenWords(input, currentNode, finalArray)
+
+    return finalArray.sort(function (a, b) {
+      return b.frequency - a.frequency
+    }).reduce((finalArray, obj) => {
+      finalArray.push(obj.word)
+      return finalArray
+    }, [])
 
   }
 
-  findChildrenWords(inputValue, node, finalArray) {
+  findChildrenWords(inputValue, currentNode, finalArray) {
 
     let newWord = inputValue;
-
-    let currentNode = node;
 
     let keys = Object.keys(currentNode.children);
 
     keys.forEach((element)  => {
-
-      let completeWord = newWord + currentNode.children[element].letter
+      let completeWord = newWord + element
 
       if (currentNode.children[element].isCompleteWord === true) {
-        finalArray.push(completeWord)
+
+        finalArray.push(
+          {word: completeWord,
+            frequency: currentNode.children[element].frequency})
       }
 
       if (currentNode.children) {
-        finalArray =
-                    this.findChildrenWords(
-                    completeWord, currentNode.children[element], finalArray)
+        this.findChildrenWords(
+            completeWord, currentNode.children[element], finalArray)
       }
     })
 
@@ -76,9 +82,8 @@ class Trie {
   findNode(inputValue, currentNode) {
 
     inputValue.forEach((element) => {
-      if (currentNode.children[element]) {
-        currentNode = currentNode.children[element];
-      }
+      currentNode.children[element] ?
+      currentNode = currentNode.children[element] : null
     })
     return currentNode
   }
@@ -87,6 +92,15 @@ class Trie {
     for (var i = 0; i < words.length; i++) {
       this.insert(words[i])
     }
+  }
+
+  select(string) {
+    const newString = [...string.toLowerCase()]
+    let currentNode = this.root
+    let node = this.findNode(newString, currentNode)
+
+    node.isCompleteWord ? node.frequency++ : null
+
   }
 }
 

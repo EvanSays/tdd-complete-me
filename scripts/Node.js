@@ -4,6 +4,7 @@ class Node {
     this.children = {};
     this.letter = letter;
     this.isCompleteWord = false;
+    this.frequency = 0;
   }
 }
 
