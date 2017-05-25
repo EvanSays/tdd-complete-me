@@ -3,11 +3,11 @@ import Node from '../scripts/Node.js'
 
 describe('TDD with Node', () => {
 
-let node;
+  let node;
 
-beforeEach(() => {
-  node = new Node();
-})
+  beforeEach(() => {
+    node = new Node();
+  })
 
   it('Should be a class', () => {
     expect(node).isObject

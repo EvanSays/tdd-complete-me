@@ -1,6 +1,5 @@
 import Node from '../scripts/Node.js'
 require('locus');
-const columnify = require('columnify')
 
 class Trie {
   constructor() {
@@ -13,16 +12,17 @@ class Trie {
     const splitString = [...string.toLowerCase()]
     let currentNode = this.root;
 
-    splitString.forEach((char,index, array) => {
-      if(!currentNode.children[char]){
+    splitString.forEach((char, index, array) => {
+
+      if (!currentNode.children[char]) {
         currentNode.children[char] = new Node(char);
       }
       currentNode = currentNode.children[char]
-      if(index === array.length - 1) {
+      if (index === array.length - 1) {
         currentNode.isCompleteWord = true;
       }
     })
-    // no duplicate words
+    
     this.wordCount += 1;
   }
 
@@ -35,35 +35,46 @@ class Trie {
       return 'please enter some letters';
     }
 
-    let currentNode = this.root;
+    let currentNode;
     let inputValue = [...input.toLowerCase()]
-
-    // let nodeLetters = [];
     let finalArray = []
 
     // find base node
-    let newCurrentNode = this.findNode(inputValue, currentNode)
+    currentNode = this.findNode(inputValue, this.root)
 
     // find children words
-    this.findChildrenWords(input, newCurrentNode)
-    //return finalArray
+    return this.findChildrenWords(input, currentNode, finalArray)
+
   }
 
-  findChildrenWords(inputValue, currentNode, suggestedArray = []) {
-    //console.log(inputValue, currentNode);
-     let keys = Object.keys(currentNode.children);
-     //console.log(keys);
+  findChildrenWords(inputValue, node, finalArray) {
+
+    let newWord = inputValue;
+
+    let currentNode = node;
+
+    let keys = Object.keys(currentNode.children);
 
     keys.forEach((element)  => {
-      //console.log(element);
 
-      //console.log(currentNode);
-      let newCurrentNode = this.findNode(element, currentNode)
-      console.log(newCurrentNode);
+      let completeWord = newWord + currentNode.children[element].letter
+
+      if (currentNode.children[element].isCompleteWord === true) {
+        finalArray.push(completeWord)
+      }
+
+      if (currentNode.children) {
+        finalArray =
+                    this.findChildrenWords(
+                    completeWord, currentNode.children[element], finalArray)
+      }
     })
+
+    return finalArray;
   }
 
   findNode(inputValue, currentNode) {
+
     inputValue.forEach((element) => {
       if (currentNode.children[element]) {
         currentNode = currentNode.children[element];
@@ -72,15 +83,11 @@ class Trie {
     return currentNode
   }
 
-
-
   populate(words) {
-    for(var i =0; i < words.length; i++) {
+    for (var i = 0; i < words.length; i++) {
       this.insert(words[i])
     }
-    console.log(this.wordCount);
   }
-
 }
 
 export default Trie;
