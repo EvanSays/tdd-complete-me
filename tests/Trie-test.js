@@ -206,7 +206,8 @@ describe('Select', () => {
                     .children.n
                     .children.d
                     .children.y.frequency).to.equal(0)
-    expect(trie.suggest('pie')).to.deep.equal(["pieduck", "piecandy", "pienapple"])
+    expect(trie.suggest('pie')).to.deep.equal(
+                        ["pieduck", "piecandy", "pienapple"])
 
     trie.select('piecandy')
 
@@ -219,7 +220,8 @@ describe('Select', () => {
                     .children.d
                     .children.y.frequency).to.equal(1)
 
-    expect(trie.suggest('pie')).to.deep.equal(["piecandy", "pieduck", "pienapple"])
+    expect(trie.suggest('pie')).to.deep.equal(
+                        ["piecandy", "pieduck", "pienapple"])
 
 
   })

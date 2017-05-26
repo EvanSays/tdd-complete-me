@@ -1,7 +1,7 @@
 {
-  "name": "TDD",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@evansays/complete-me",
+  "version": "0.0.1",
+  "description": "JS library for prefix tree",
   "main": "index.js",
   "directories": {
     "test": "tests"
@@ -10,7 +10,7 @@
     "test": "mocha --timeout 20000 --compilers  js:babel-core/register tests"
   },
   "keywords": [],
-  "author": "",
+  "author": "evansays",
   "license": "ISC",
   "devDependencies": {
     "babel": "^6.23.0",
@@ -19,9 +19,18 @@
     "babel-preset-env": "^1.1.8",
     "babel-preset-es2015": "^6.22.0",
     "chai": "^3.5.0",
-    "locus": "^2.0.1"
+    "locus": "^2.0.1",
+    "mocha": "^3.4.2"
   },
   "dependencies": {
     "columnify": "^1.5.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvanSays/tdd-complete-me.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EvanSays/tdd-complete-me/issues"
+  },
+  "homepage": "https://github.com/EvanSays/tdd-complete-me#readme"
 }
